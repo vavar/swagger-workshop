@@ -7,5 +7,5 @@ docker run --rm -p 9001:8080 -e SWAGGER_FILE=/mnt/petstore.yaml -v $PWD:/mnt swa
 
 ## Swagger UI Docker command
 ```
-docker run --rm -p 9000:8080 -e SWAGGER_JSON=/mnt/petstore.yaml -v $PWD:/mnt swaggerapi/swagger-ui
+docker run --rm -p 9000:8080 -e SWAGGER_JSON=/mnt/api.yaml -v $PWD:/mnt swaggerapi/swagger-ui
 ```

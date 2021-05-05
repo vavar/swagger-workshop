@@ -1,0 +1,118 @@
+openapi: 3.0.0
+info:
+  title: HTTP Bin
+  version: 1.0.0
+  description: |
+    # HTTP Bin
+    ### TEST Hello World
+    `code me`
+    > quote me
+    ```
+      code block
+    ```
+servers:
+  - url: https://{gt-env}.krungthai/{bond-type}
+    variables:
+      gt-env:
+        default: gtd
+        enum:
+          - gtd
+          - gts
+          - gtu
+      bond-type:
+        default: savings
+        enum:
+          - savings
+          - corps
+  - url: https://gtu.krungthai/savings
+  - url: https://gtu.krungthai/corps
+
+security:
+  - BearerAuth: []
+
+paths:
+  /headers:
+    get:
+      summary: get headers
+      tags:
+        - headers
+      responses:
+        '200':
+          description: get Headers
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseHeader"
+              examples:
+                Success Response:
+                  value:
+                    headers:
+                        Accept: "bbb"
+                    url: "http://httpbin.org"
+                Bad Request:
+                  value:
+                    headers:
+                      Accept: "ccc"
+    post:
+      summary: post headers
+      tags:
+        - headers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RequestHeader"
+      responses:
+        '200':
+          description: post Headers
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseHeader"
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Wallet:
+      type: object
+      properties:
+        wallet_id:
+          type: string
+          description: เป๋าตัง wallet id
+
+    HeaderObject:
+      type: object
+      properties:
+        Accept:
+          type: string
+        X-Request-ID:
+          type: string
+    
+    RequestHeader:
+      allOf:
+      - $ref: "#/components/schemas/HeaderObject"
+      - $ref: "#/components/schemas/Wallet"
+        
+    ResponseHeader:
+      allOf:
+      - $ref: "#/components/schemas/HeaderObject"
+      - $ref: "#/components/schemas/Wallet"
+      - type: object
+        properties:
+          url:
+            type: string
+            example: https://google.com
+          responseCode:
+            type: number
+            description: |
+              # TDP response Code
+              | Status | Description |
+              |--------|-------------|
+              | 0      | success     |
+              | 1      | error       |
+              ```mermaid
+              sequenceDiagram
+              ```
+              sasdddddddddsasdddddddddsasdddddddddsasdddddddddsasdddddddddsasddddddddd 
